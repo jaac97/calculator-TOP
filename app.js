@@ -21,7 +21,8 @@ function getNumber(number) {
 
             display.textContent += number
 
-        }  else {
+        } 
+         else {
             console.log(operator)
             if (operator === '=') {
                 display.textContent = number
@@ -39,6 +40,14 @@ function getNumber(number) {
 
         }
     } else {
+        if (number === "AC") {
+
+            n1 = undefined;
+            n2 = undefined;
+            operator = undefined;
+            display.textContent = '';
+            return
+        }
         if (display.textContent === '')
             return;
 
