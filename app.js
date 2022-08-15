@@ -21,8 +21,7 @@ function getNumber(number) {
 
             display.textContent += number
 
-        } 
-         else {
+        } else {
             console.log(operator)
             if (operator === '=') {
                 display.textContent = number
@@ -54,14 +53,16 @@ function getNumber(number) {
         if (operator !== undefined) {
 
             if (number === '=') {
-                display.textContent = operations(n1, n2, operator);
+                let result = operations(n1, n2, operator);
+                result =round(result)
+                display.textContent = result
                 n1 = undefined;
                 n2 = undefined;
                 operator = number;
                 return;
             }
-
             n1 = operations(n1, n2, operator);
+            n1 =round(n1)
             n2 = undefined;
 
             display.textContent = n1;
@@ -78,21 +79,29 @@ function getNumber(number) {
         console.log(operator)
     }
 }
+function round(num) {
+    var m = Number((Math.abs(num) * 100).toPrecision(15));
+    return Math.round(m) / 100 * Math.sign(num);
+}
 
 function operations(n1, n2, op) {
     n1 = parseFloat(n1)
     n2 = parseFloat(n2)
-
+    let result;
     if (operator === '+') {
-        return n1 + n2
+        result = n1 + n2
     } else if (operator === '-') {
-        return n1 - n2
+        result = n1 - n2
 
     } else if (operator === '*') {
-        return n1 * n2
+        result = n1 * n2
 
     } else if (operator === '/') {
-        return n1 / n2
+        if (n2 == 0) {
+            result = 'XD'
+        }
+        result = n1 / n2
     }
+    return result
 }
 events()
