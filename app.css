@@ -40,9 +40,11 @@ body {
     padding: 1rem;
     background-color: var(--dark);
     border-radius: 1rem;
+    width: 30rem;
 }
 .calculator__display{
     width: 100%;
+    height: 13rem;
     background-color: var(--gray);
     color:  var(--dark);
     font-size: 8rem;
