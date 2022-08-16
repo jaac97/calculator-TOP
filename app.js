@@ -36,9 +36,19 @@ function getNumber(number) {
                 return;
             }
             if (n2 === undefined) {
+                console.log(number)
+                if (number === "%" && display.textContent !== '') {
+                    return
+                }
                 display.textContent = number;
                 n2 = number
             } else {
+                if (number === "%" && display.textContent !== '') {
+                    let percent = parseFloat(display.textContent) / 100
+                    display.textContent = percent;
+                    n2 = percent;
+                    return
+                }
                 n2 += number;
                 display.textContent = n2;
                 // console.log(n1, n2, operator)
