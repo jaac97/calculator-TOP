@@ -13,13 +13,20 @@ function events() {
 /*
     Cuando una operacion es solicitada se almacena lo que esta en pantalla en n1, se guarda el operador y se guarda n2 cuando se pulsa para ejecutar otra operacion
     Si el boton presionado es "=" entonces, operator se vuelve undefined despues de pulsar un nuevo numero
+    Si el operator es undefined se muestran los datos que serán almacenados en la primera variable
 */
 function getNumber(number) {
     const display = document.querySelector('.calculator__display');
-    if (number !== "AC" && number !== "+/-" && number !== "%" && number !== "/" && number !== "*" && number !== "+" && number !== "-" && number !== "=") {
+    if (number !== "AC" && number !== "+/-" && /*number !== "%" &&*/ number !== "/" && number !== "*" && number !== "+" && number !== "-" && number !== "=") {
         if (operator === undefined) {
-
-            display.textContent += number
+            if (number === "%" && display.textContent !== '') {
+                let percent = parseFloat(display.textContent) / 100
+                display.textContent = percent;
+                return
+            }
+            if (number !== "%") {
+                display.textContent += number
+            }
 
         } else {
             console.log(operator)
@@ -40,21 +47,24 @@ function getNumber(number) {
         }
     } else {
         if (number === "AC") {
-
             n1 = undefined;
             n2 = undefined;
             operator = undefined;
             display.textContent = '';
             return
         }
-        if (display.textContent === '')
+        if (display.textContent === '') {
             return;
+        }
+        if (number === '%') {
+
+        }
 
         if (operator !== undefined) {
 
             if (number === '=') {
                 let result = operations(n1, n2, operator);
-                result =round(result)
+                result = round(result)
                 display.textContent = result
                 n1 = undefined;
                 n2 = undefined;
@@ -62,7 +72,7 @@ function getNumber(number) {
                 return;
             }
             n1 = operations(n1, n2, operator);
-            n1 =round(n1)
+            n1 = round(n1)
             n2 = undefined;
 
             display.textContent = n1;
@@ -79,6 +89,7 @@ function getNumber(number) {
         console.log(operator)
     }
 }
+
 function round(num) {
     var m = Number((Math.abs(num) * 100).toPrecision(15));
     return Math.round(m) / 100 * Math.sign(num);
